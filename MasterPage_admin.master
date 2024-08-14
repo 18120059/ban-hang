@@ -1,0 +1,129 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage_admin.master.cs" Inherits="MasterPage_admin" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<% 
+    if (Session["giohang"] == null)
+        Session["giohang"] = "0";
+    if (Session["sanpham"] == null)
+        Session["sanpham"] = "";
+    if (Session["sl"] == null)
+        Session["sl"] = "";
+%>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Kim khi dien may Minh Long</title>
+    <link href="css/init.css" rel="stylesheet" type="text/css">  
+    <link href="css/tieude.css" rel="stylesheet" type="text/css"> 
+    <script language="javascript" src="js/stmenu.js"></script>
+    
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script language="javascript" src="js/ajax.js"></script>
+    <script language="javascript" src="js/xuly.js"></script>
+    <script language="javascript" src="js/checkDK.js"></script>
+    <script language=javascript>
+        function ktra_timkiem(form)
+        {
+            var nhasx=form.nhasx.value;
+            var gia=form.gia.value;
+            if(nhasx=="" && gia=="")
+            {
+                alert ("Ban phai chon it nhat mot dieu kien tim kiem");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<Body>
+	
+	<table width="100%" background="images/background.jpg" border="0" cellpadding="0" cellspacing="0">
+	    <tr>
+	        <td width="50%">
+	        </td>
+	        <td>
+	            <table bgcolor="#6c6d6f" width="800" border="0" cellpadding="0" cellspacing="0" align="center">
+		            <tr>
+			            <td>
+				            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+					            <tr>
+						            <td height="111" colspan="3">
+						                <table width=100% border=0 cellpadding =0 cellspacing =0>
+						                    <tr>
+						                        <td width=340 background="images/logo.gif" style="background-position:left"></td>
+						                        <td>
+						                             <table width=100% border=0 cellpadding =0 cellspacing =0>
+						                                <tr>
+						                                    <td height="89" background="images/slogan.gif" style="background-position:right;background-repeat:no-repeat"></td>
+						                                </tr>
+						                                <tr>
+						                                    <td width=460 height=22>
+                                                                <table width=100% border=0 cellpadding =0 cellspacing =1>
+                                                                    <tr>
+                                                                        <td class="menungang"><a  href="Default.aspx" class="menu">Trang Chủ </a></td>
+                                                                        <td class="menungang"><a  href="huongdan.aspx" class="menu">Hướng Dẫn</a></td>
+                                                                        <td class="menungang"><a  href="dangky.aspx" class="menu">Đăng Ký</a></td> 
+                                                                        <td class="menungang"><a href="lienhe.aspx" class="menu">Liên Hệ</a></td>
+                                                                        <td class="menungang"><a href="giohang.aspx" class="menu">Giỏ Hàng</a></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+						                                </tr>
+						                             </table> 
+						                        </td>
+						                    </tr>
+						                </table>
+						            </td>
+					            </tr>	
+					            <tr>
+						            <td height="143" width="184" rowspan="2"><img src="images/hinh1.gif" /></td>
+						            <td width="616" background="images/hinh2.gif" height="25" colspan="2"></td>
+					            </tr>
+					            <tr>
+						            <td width="418"><img src="images/hinh4.gif" /></td>
+						            <td width="198"><img src="images/hinh5.gif" /></td>
+					            </tr>
+				            </table>
+			            </td>
+		            </tr>
+		            <tr>
+		                <td>
+		                    <table width="100%" border=0 cellpadding=0 cellspacing=3> 
+		                        <tr>
+		                            <td valign=top>
+                                        <table width =100% border=0 cellpadding =0 cellspacing =3>
+                                            <tr>
+                                                <td valign='top'>
+                                                     <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+                                                     </asp:contentplaceholder>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                  </tr> 
+		                       </table> 
+		                  </td>     
+		                 </tr>      
+		                
+		            
+                    <tr>
+                        <td background="images/footer.gif" height=24 align=center valign=middle><a  href="Default.aspx" class="footer">Trang Chủ </a> &nbsp;<a  href="gioithieu.aspx" class="footer"> || Giới thiệu </a>&nbsp;<a  href="huongdan.aspx" class="footer"> || Hướng Dẫn</a> &nbsp;<a  href="thanhtoan.aspx" class="footer"> || Phương thức thanh toán - vận chuyển</a> &nbsp;<a href="lienhe.aspx" class="footer"> || Liên Hệ</a>
+                        </td>
+                    </tr>
+                    <tr>
+  	                    <td height="40" valign=middle align="center" style="color:white">
+  	                        Designed by Hà Phụng Dinh - Chung Toàn - Nguyễn Trần Viết Thanh<br />
+                            Niên học : Khóa VI - 2006 - Lớp Lập Trình
+  	                    </td>
+                    </tr>
+                </table> 
+	       </td>
+	        <td width="50%">
+	        </td>
+	    </tr>
+    </table>
+    
+   
+</body>
+</html>

@@ -1,0 +1,274 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Import Namespace="System.Data.SqlClient"%>
+<%@ Import Namespace="System.Configuration"%>
+<%@ Import Namespace="System.Data" %>
+<%--Download source code tai Sharecode.vn--%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<% 
+    if (Session["giohang"] == null)
+        Session["giohang"] = "0";
+    if (Session["sanpham"] == null)
+        Session["sanpham"] = "";
+    if (Session["sl"] == null)
+        Session["sl"] = "";
+%>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Kim khi dien may Minh Long</title>
+    <link href="css/tieude.css" rel="stylesheet" type="text/css"> 
+    <script language="javascript" src="js/stmenu.js"></script>
+    
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script language="javascript" src="js/ajax.js"></script>
+    <script language="javascript" src="js/xuly.js"></script>
+    <script language="javascript" src="js/checkDK.js"></script>
+    <script language=javascript>
+        function ktra_timkiem(form)
+        {
+            var nhasx=form.nhasx.value;
+            var gia=form.gia.value;
+            if(nhasx=="" && gia=="")
+            {
+                alert ("Ban phai chon it nhat mot dieu kien tim kiem");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<Body>
+	
+	<table width="100%" background="images/background.jpg" border="0" cellpadding="0" cellspacing="0">
+	    <tr>
+	        <td width="50%">
+	        </td>
+	        <td>
+	            <table bgcolor="#6c6d6f" width="800" border="0" cellpadding="0" cellspacing="0" align="center">
+		            <tr>
+			            <td>
+				            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+					            <tr>
+						            <td height="111" colspan="3">
+						                <table width=100% border=0 cellpadding =0 cellspacing =0>
+						                    <tr>
+						                        <td width=340 background="images/logo.gif" style="background-position:left"></td>
+						                        <td>
+						                             <table width=100% border=0 cellpadding =0 cellspacing =0>
+						                                <tr>
+						                                    <td height="89" background="images/slogan.gif" style="background-position:right;background-repeat:no-repeat"></td>
+						                                </tr>
+						                                <tr>
+						                                    <td width=460 style="height: 22px">
+                                                                <table width=100% border=0 cellpadding =0 cellspacing =1>
+                                                                    <tr>
+                                                                        <td class="menungang"><a  href="Default.aspx" class="menu">Trang Chủ </a></td>
+                                                                        <td class="menungang"><a  href="huongdan.aspx" class="menu">Hướng Dẫn</a></td>
+                                                                        <td class="menungang"><a  href="dangky.aspx" class="menu">Đăng Ký</a></td> 
+                                                                        <td class="menungang"><a href="lienhe.aspx" class="menu">Liên Hệ</a></td>
+                                                                        <td class="menungang"><a href="giohang.aspx" class="menu">Giỏ Hàng</a></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+						                                </tr>
+						                             </table> 
+						                        </td>
+						                    </tr>
+						                </table>
+						            </td>
+					            </tr>	
+					            <tr>
+						            <td height="143" width="184" rowspan="2"><img src="images/hinh1.gif" /></td>
+						            <td width="616" background="images/hinh2.gif" height="25" colspan="2"></td>
+					            </tr>
+					            <tr>
+						            <td width="418"><img src="images/hinh4.gif" /></td>
+						            <td width="198"><img src="images/hinh5.gif" /></td>
+					            </tr>
+				            </table>
+			            </td>
+		            </tr>
+		            <tr>
+		                <td>
+		                    <table width="100%" border=0 cellpadding=0 cellspacing=3> 
+		                        <tr>
+		                            <td width=150 valign=top>
+		                                <table width =100% border=0 cellpadding =0 cellspacing =3>
+		                                    <tr>
+		                                        <td>
+		                                            <script language="javascript" src="js/menu trai.js"></script>
+		                                        </td>
+		                                    </tr>
+		                                </table>
+		                            </td>
+		                            <td valign=top>
+                                        <table width =100% border=0 cellpadding =0 cellspacing =3>
+                                            <tr>
+                                                <td valign='top'>
+                                                     <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+                                                     </asp:contentplaceholder>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+		                            <td width=150 valign=top>
+		                                
+		                                <table width =100% border=0 cellpadding =0 cellspacing =3>
+		                                    <tr>
+		                                        <td>
+		                                        <div id="dangnhap" runat="server">
+		                                        <% 
+                                                    if (Session["user"] == null)
+                                                    {
+                                                        Response.ContentType = "text/html;charset=utf-8";
+                                                        string result = "<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#ebf7ff'><form action='checklogin.aspx' method='post' name='dangnhap' onsubmit='return check_dn(this)'>";
+                                                        result += "<tr><td height='24' bgcolor='#003399' align =center style='color:white'><font face='Verdana'>Đăng nhập</font></td></tr>";
+                                                        result += "<tr><td>&nbsp;Username</td></tr>";
+                                                        result += "<tr><td>&nbsp;<input type='text' size='20' name='txtuser'></td></tr>";
+                                                        result += "<tr><td>&nbsp;Password</td></tr>";
+                                                        result += "<tr><td>&nbsp;<input type='password' size='20' name='txtpass'></td></tr>";
+                                                        result += "<tr><td align='center'><input type='submit' name='cmdDangnhap' value='Đăng nhập'></td></tr>";
+                                                        if (Session["error"] != null)
+                                                            result += "<tr><td align='center' style='color:red'>Sai user hoặc pass</td></tr>";
+                                                        Session["error"] = null;
+                                                        result += "</form></table>";
+                                                        Response.Write(result);
+                                                    }
+                                                    else
+                                                    {
+                                                        string result = "<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#ebf7ff'>";
+                                                        result += "<tr><td bgcolor='#003399' align =center style='color:white'>Thành viên</td></tr>";
+                                                        result += "<tr><td align='center'>Xin chào quý khách</td></tr>";
+                                                        result += "<tr><td align='center'>" + Session["user"].ToString() + "</td></tr>";
+                                                        result += "<tr><td align='center'><a href='dangxuat.aspx' class='thoat'>Đăng xuất</a></td></tr>";
+                                                        result += "<tr><td align='center'><a href='doimatkhau.aspx' class='thoat'>Đổi mật khẩu</a></td></tr>";
+                                                        result += "<tr><td align='center'><a href='thongtincanhan.aspx?type=3' class='thoat'>Đổi thông tin</a></td></tr>";
+                                                        if(Session["loaitk"]!=null && Session["loaitk"].ToString().Equals("admin"))
+                                                            result += "<tr><td align='center'><a href='admin.aspx' class='thoat'>Quản trị</a></td></tr>";
+                                                        result += "</table>";
+                                                        Response.Write(result);
+                                                    }      
+		                                        %>
+		                                            
+		                                            </div>
+		                                            
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>
+		                                             
+		                                                <table width =100% border=0 cellpadding =0 cellspacing =0 bgcolor=white>   
+		                                                    <tr>
+		                                                        <td height="24" bgcolor='#003399' align =center style="color:white">Giỏ hàng</td> 
+		                                                    </tr>
+		                                                    <tr>
+		                                                        <td align =center><a href="giohang.aspx"><img src="images/gio hang.gif" style="border:none" width='70' height='50'/></a>&nbsp;<span id="giohang" class='sanpham'><%=Session["giohang"]%></span> sản phẩm</td>
+		                                                    </tr>
+		                                                </table> 
+		                                             
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>
+		                                            
+		                                            <form action="timkiem.aspx" method=post name="tim" onsubmit="return ktra_timkiem(this)">  
+		                                            <table width =100% border=0 cellpadding =0 cellspacing =0 bgcolor=white> 
+		                                            
+		                                                <tr>
+		                                                    <td height="24" bgcolor='#003399' align =center style="color:white">Tìm kiếm</td> 
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="center">
+		                                                        <table width =100% border=0 cellpadding =0 cellspacing =4>
+		                                                        <tr>
+		                                                            <td align="center">
+		                                                                   <select name="nhasx" class="cell" style="width:130px"><option value=''>--Chọn nhà sx--</option>
+		                                                                    <% 
+                                                                                string result = "";
+                                                                                string connectString = ConfigurationManager.ConnectionStrings["dotnet"].ConnectionString;
+                                                                                SqlConnection conn = new SqlConnection(connectString);
+                                                                                conn.Open();
+                                                                                string sql = "select * from nhasx order by tennhasx";      
+                                                                                SqlCommand comm = new SqlCommand(sql, conn);
+                                                                                SqlDataReader reader = comm.ExecuteReader();
+                                                                                while (reader.Read())
+                                                                                {
+                                                                                    result+="<option value='" + reader["manhasx"].ToString() + "'>" + reader["tennhasx"].ToString() + "</option>";   
+                                                                                }
+                                                                                Response.Write(result);                             
+		                                                                    %>
+		                                                                    </select>
+		                                                            </td>
+		                                                        </tr>
+		                                                        <tr>
+		                                                            <td align="center">
+		                                                                <select name="gia" class="cell" style="width:130px">
+		                                                                    <option value=''>--Chọn giá tiền--</option>
+		                                                                    <option value='3000000-0'>Dưới 3tr</option>
+		                                                                    <option value='3000000-5000000'>3tr-5tr</option>
+		                                                                    <option value='5000000-1'>Trên 5tr</option>
+		                                                                </select>
+                                                                    </td>
+		                                                        </tr>
+		                                                        </table>
+                                                            </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align=center>
+		                                                        <input type="submit" name="cmdTim" value="" style="border:none;background:url('images/button_search.gif');background-position:center;width:66px;height:28px" />
+		                                                    </td>
+		                                                </tr>
+		                                            
+		                                            </table> 
+		                                            </form>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td>
+		                                            <% 
+                                                        result = "<table width='100%' bgcolor=white border='0' cellspacing='0' cellpadding='0'>";
+                                                        result += "<tr><td height='24' bgcolor='#003399' align =center style='color:white'>Thống kê</td></tr>";
+                                                        result += "<tr><td>&nbsp;Số lần truy nhập:<span class='sanpham'>" + Application["sltruynhap"].ToString() + "</span></td></tr>";
+                                                        result += "<tr><td>&nbsp;Số thành viên online:<span class='sanpham'>" + Application["sothanhvien"].ToString() + "</span></td></tr>";
+                                                        result += "</table>";
+                                                        Response.Write(result);
+                                                    %>
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+                                                <td align=center valign=middle>
+                                                    <img width="165" src="images/msm.gif" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align=center valign=middle>
+                                                    <img width="165" height="70" src="images/quangcao.gif" />
+                                                </td>
+                                            </tr>
+		                                </table>
+		                             </td> 
+		                          </tr> 
+		                       </table> 
+		                </td>
+		            </tr>
+                    <tr>
+                        <td background="images/footer.gif" height=24 align=center valign=middle><a  href="Default.aspx" class="footer">Trang Chủ </a> &nbsp;<a  href="gioithieu.aspx" class="footer"> || Giới thiệu </a>&nbsp;<a  href="huongdan.aspx" class="footer"> || Hướng Dẫn</a> &nbsp;<a  href="thanhtoan.aspx" class="footer"> || Phương thức thanh toán - vận chuyển</a> &nbsp;<a href="lienhe.aspx" class="footer"> || Liên Hệ</a>
+                        </td>
+                    </tr>
+                    <tr>
+  	                    <td height="40" valign=middle align="center" style="color:white">
+  	                        Designed by Hà Phụng Dinh - Chung Toàn - Nguyễn Tấn Công<br />
+                            Niên học : Khóa VI - 2006 - Lớp Lập Trình
+  	                    </td>
+                    </tr>
+                </table> 
+	        </td>
+	        <td width="50%">
+	        </td>
+	    </tr>
+    </table>
+    
+   
+</body>
+</html>
